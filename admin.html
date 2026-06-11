@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자 페이지 | 한이음 드림업 창업 멘토링</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'GmarketSans';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight:500;}@font-face{font-family:'GmarketSans';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');font-weight:700;}</style>
 <style>
   :root { --primary:#0A2540; --accent:#00C2A8; --gold:#F5B623; --red:#FF4D4D; --light:#F0F4F8; --white:#FFFFFF; --text:#1A1A2E; --muted:#607080; --border:#E0E8F0; }
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -13,34 +14,34 @@
   /* LOGIN */
   .login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--primary) 0%,#0D3B6E 100%); }
   .login-card { background:white; border-radius:20px; padding:2.5rem; width:100%; max-width:380px; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
-  .login-logo { font-family:'Black Han Sans',sans-serif; font-size:1rem; color:var(--primary); margin-bottom:0.3rem; }
+  .login-logo { font-family:'GmarketSans',sans-serif; font-size:1rem; color:var(--primary); margin-bottom:0.3rem; }
   .login-sub { font-size:0.75rem; color:var(--muted); margin-bottom:2rem; }
-  .login-title { font-family:'Black Han Sans',sans-serif; font-size:1.4rem; color:var(--primary); margin-bottom:1.5rem; }
+  .login-title { font-family:'GmarketSans',sans-serif; font-size:1.4rem; color:var(--primary); margin-bottom:1.5rem; }
   .form-group { margin-bottom:1rem; }
   .form-group label { font-size:0.78rem; font-weight:700; color:var(--muted); display:block; margin-bottom:6px; }
   .form-group input { width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:10px; font-family:'Nanum Gothic',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.2s; }
   .form-group input:focus { border-color:var(--accent); }
-  .login-btn { width:100%; padding:13px; background:linear-gradient(135deg,var(--accent),#00A08A); color:white; border:none; border-radius:10px; font-family:'Black Han Sans',sans-serif; font-size:1rem; cursor:pointer; margin-top:0.5rem; }
+  .login-btn { width:100%; padding:13px; background:linear-gradient(135deg,var(--accent),#00A08A); color:white; border:none; border-radius:10px; font-family:'GmarketSans',sans-serif; font-size:1rem; cursor:pointer; margin-top:0.5rem; }
   .login-error { color:var(--red); font-size:0.78rem; margin-top:0.8rem; text-align:center; display:none; }
 
   /* ADMIN */
   .admin-wrap { display:none; }
   header { background:var(--primary); padding:0 2rem; position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,0.3); }
   .header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:64px; }
-  .logo-main { font-family:'Black Han Sans',sans-serif; font-size:1.05rem; color:var(--accent); }
+  .logo-main { font-family:'GmarketSans',sans-serif; font-size:1.05rem; color:var(--accent); }
   .logo-sub { font-size:0.6rem; color:rgba(255,255,255,0.5); margin-top:2px; }
   .admin-badge { background:var(--red); color:white; font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:20px; }
   .logout-btn { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); border:1px solid rgba(255,255,255,0.2); padding:6px 14px; border-radius:8px; font-family:'Nanum Gothic',sans-serif; font-size:0.78rem; cursor:pointer; }
   .logout-btn:hover { background:rgba(255,255,255,0.2); color:white; }
 
   .admin-content { max-width:1200px; margin:0 auto; padding:2rem; }
-  .page-title { font-family:'Black Han Sans',sans-serif; font-size:1.4rem; color:var(--primary); margin-bottom:1.5rem; }
+  .page-title { font-family:'GmarketSans',sans-serif; font-size:1.4rem; color:var(--primary); margin-bottom:1.5rem; }
 
   /* SUMMARY */
   .summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
   .summary-card { background:white; border-radius:14px; padding:1.4rem; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.05); }
   .summary-icon { font-size:1.6rem; margin-bottom:0.6rem; }
-  .summary-num { font-family:'Black Han Sans',sans-serif; font-size:2rem; color:var(--primary); line-height:1; margin-bottom:0.3rem; }
+  .summary-num { font-family:'GmarketSans',sans-serif; font-size:2rem; color:var(--primary); line-height:1; margin-bottom:0.3rem; }
   .summary-num.accent { color:var(--accent); }
   .summary-num.gold { color:var(--gold); }
   .summary-label { font-size:0.75rem; color:var(--muted); }
@@ -53,7 +54,7 @@
   /* VIEWS TABLE */
   .table-card { background:white; border-radius:16px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.05); overflow:hidden; margin-bottom:2rem; }
   .table-header { display:flex; align-items:center; justify-content:space-between; padding:1.2rem 1.5rem; border-bottom:1px solid var(--border); }
-  .table-header h2 { font-family:'Black Han Sans',sans-serif; font-size:1rem; color:var(--primary); }
+  .table-header h2 { font-family:'GmarketSans',sans-serif; font-size:1rem; color:var(--primary); }
   .btn-group { display:flex; gap:8px; }
   .refresh-btn { background:var(--accent); color:white; border:none; padding:7px 14px; border-radius:8px; font-family:'Nanum Gothic',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
   .reset-btn { background:rgba(255,77,77,0.1); color:var(--red); border:1px solid rgba(255,77,77,0.3); padding:7px 14px; border-radius:8px; font-family:'Nanum Gothic',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
@@ -69,7 +70,7 @@
   .view-bar-wrap { display:flex; align-items:center; gap:10px; }
   .view-bar-track { flex:1; height:6px; background:var(--light); border-radius:6px; overflow:hidden; min-width:80px; }
   .view-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),#00A08A); border-radius:6px; }
-  .view-count { font-family:'Black Han Sans',sans-serif; font-size:1.1rem; color:var(--primary); min-width:36px; text-align:right; }
+  .view-count { font-family:'GmarketSans',sans-serif; font-size:1.1rem; color:var(--primary); min-width:36px; text-align:right; }
   .rank-badge { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; font-size:0.78rem; font-weight:700; }
   .rank-1 { background:#FFD700; color:#7A5A00; }
   .rank-2 { background:#C0C0C0; color:#555; }
@@ -79,7 +80,7 @@
   /* PDF UPLOAD */
   .pdf-grid { display:flex; flex-direction:column; gap:12px; }
   .pdf-row { background:white; border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
-  .pdf-ep { font-family:'Black Han Sans',sans-serif; font-size:0.85rem; color:var(--primary); min-width:36px; }
+  .pdf-ep { font-family:'GmarketSans',sans-serif; font-size:0.85rem; color:var(--primary); min-width:36px; }
   .pdf-title { flex:1; font-size:0.88rem; font-weight:700; color:var(--text); min-width:160px; }
   .pdf-status { font-size:0.78rem; padding:4px 12px; border-radius:20px; font-weight:700; white-space:nowrap; }
   .pdf-status.uploaded { background:rgba(0,194,168,0.12); color:#007A6A; }
