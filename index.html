@@ -297,10 +297,10 @@ function addView(id) {
 
 function renderDownloadBtn(lec) {
   const pdfs = getPdfUrls();
-  const url = pdfs[lec.id] || lec.pdfUrl;
+  const rawUrl = pdfs[lec.id] || lec.pdfUrl;
   const area = document.getElementById('downloadArea');
-  if (url) {
-    area.innerHTML = '<a class="btn-download" href="' + url + '" target="_blank" download>📄 강의안 다운로드</a>';
+  if (rawUrl) {
+    area.innerHTML = '<a class="btn-download" href="' + rawUrl + '" target="_blank">📄 강의안 다운로드</a>';
   } else {
     area.innerHTML = '<button class="btn-download disabled" disabled>📄 강의안 준비 중</button>';
   }
