@@ -290,9 +290,14 @@ function getPdfUrls() {
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxcZMBjU3e4QO095UJkbW1UzszrFjDlnLNds2Ln86s8OvMMttCHYi9aUcnu5RNR6Om6QA/exec';
 
 function addView(id) {
-  // Google Sheets로 기록 전송 (실패해도 무시)
-  const img = new Image();
-  img.src = SHEET_API_URL + '?action=addView&lectureId=' + id + '&t=' + Date.now();
+  fetch(SHEET_API_URL + '?action=addView&lectureId=' + id + '&t=' + Date.now(), {
+    method: 'GET',
+    mode: 'no-cors'
+  }).then(() => {
+    console.log('조회수 기록 전송 완료: ' + id + '강');
+  }).catch((err) => {
+    console.error('조회수 기록 전송 실패:', err);
+  });
 }
 
 function renderDownloadBtn(lec) {
