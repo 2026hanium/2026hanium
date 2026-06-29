@@ -229,8 +229,8 @@ const lectures = [
 ];
 
 const barColors = ['#00C2A8','#0D8FC4','#6C63FF','#F5B623','#FF6B35'];
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxcZMBjU3e4QO095UJkbW1UzszrFjDlnLNds2Ln86s8OvMMttCHYi9aUcnu5RNR6Om6QA/exec';
 
-function getViews() { try { return JSON.parse(localStorage.getItem('lectureViews')||'{}'); } catch(e) { return {}; } }
 function getPdfs()  { try { return JSON.parse(localStorage.getItem('lecturePdfs') ||'{}'); } catch(e) { return {}; } }
 function savePdfs(obj) { localStorage.setItem('lecturePdfs', JSON.stringify(obj)); }
 
@@ -269,11 +269,26 @@ function showToast(msg) {
 }
 
 function renderAll() {
-  const views = getViews();
-  const pdfs  = getPdfs();
-  const arr = lectures.map(l => ({ ...l, views: views[l.id]||0 }));
+  document.getElementById('viewTable').innerHTML =
+    '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--muted);">⏳ 조회수 데이터를 불러오는 중...</td></tr>';
+
+  fetch(SHEET_API_URL + '?action=getViews')
+    .then(res => res.json())
+    .then(data => {
+      const counts = data.counts || {};
+      drawViewTable(counts);
+    })
+    .catch(err => {
+      document.getElementById('viewTable').innerHTML =
+        '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--red);">⚠️ 데이터를 불러오지 못했습니다. Apps Script 배포 상태를 확인해주세요.</td></tr>';
+    });
+}
+
+function drawViewTable(counts) {
+  const arr = lectures.map(l => ({ ...l, views: counts[l.id] || 0 }));
   const total = arr.reduce((s,l) => s+l.views, 0);
   const top   = arr.reduce((a,b) => a.views>=b.views ? a : b);
+  const pdfs  = getPdfs();
   const pdfCnt = Object.values(pdfs).filter(v => v).length;
   const maxV  = Math.max(...arr.map(l=>l.views), 1);
 
@@ -285,28 +300,29 @@ function renderAll() {
   const rankCls = i => ['rank-1','rank-2','rank-3','rank-other','rank-other'][i];
   const rankEmoji = i => ['🥇','🥈','🥉','',''][i];
 
-  document.getElementById('viewTable').innerHTML = sorted.map((lec,i) => {
-    const pct = Math.round(lec.views/maxV*100);
-    return '<tr>' +
-      '<td><span class="rank-badge '+rankCls(i)+'">'+(rankEmoji(i)||(i+1))+'</span></td>' +
-      '<td><span class="ep-badge">'+lec.id+'강</span>'+lec.title+'</td>' +
-      '<td>'+lec.duration+'</td>' +
-      '<td><div class="view-bar-wrap">' +
-        '<div class="view-bar-track"><div class="view-bar-fill" style="width:'+pct+'%;background:'+barColors[lec.id-1]+'"></div></div>' +
-        '<span class="view-count">'+lec.views.toLocaleString()+'</span><span style="font-size:0.72rem;color:var(--muted)">회</span>' +
-      '</div></td>' +
-    '</tr>';
-  }).join('');
+  if (total === 0) {
+    document.getElementById('viewTable').innerHTML =
+      '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--muted);">📭 아직 재생 데이터가 없습니다.</td></tr>';
+  } else {
+    document.getElementById('viewTable').innerHTML = sorted.map((lec,i) => {
+      const pct = Math.round(lec.views/maxV*100);
+      return '<tr>' +
+        '<td><span class="rank-badge '+rankCls(i)+'">'+(rankEmoji(i)||(i+1))+'</span></td>' +
+        '<td><span class="ep-badge">'+lec.id+'강</span>'+lec.title+'</td>' +
+        '<td>'+lec.duration+'</td>' +
+        '<td><div class="view-bar-wrap">' +
+          '<div class="view-bar-track"><div class="view-bar-fill" style="width:'+pct+'%;background:'+barColors[lec.id-1]+'"></div></div>' +
+          '<span class="view-count">'+lec.views.toLocaleString()+'</span><span style="font-size:0.72rem;color:var(--muted)">회</span>' +
+        '</div></td>' +
+      '</tr>';
+    }).join('');
+  }
 
   document.getElementById('lastUpdated').textContent = '마지막 업데이트: ' + new Date().toLocaleString('ko-KR');
 }
 
 function resetViews() {
-  if (confirm('모든 조회수를 초기화하시겠습니까?')) {
-    localStorage.removeItem('lectureViews');
-    renderAll();
-    showToast('✅ 조회수가 초기화되었습니다.');
-  }
+  showToast('⚠️ Google Sheets 데이터는 시트에서 직접 행을 삭제해주세요.');
 }
 
 function renderPdfGrid() {
