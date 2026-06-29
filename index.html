@@ -286,13 +286,13 @@ function getPdfUrls() {
   try { return JSON.parse(localStorage.getItem('lecturePdfs') || '{}'); } catch(e) { return {}; }
 }
 
-function getViews() {
-  try { return JSON.parse(localStorage.getItem('lectureViews') || '{}'); } catch(e) { return {}; }
-}
+// ── Google Sheets 연동 (실제 전체 집계) ──
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxcZMBjU3e4QO095UJkbW1UzszrFjDlnLNds2Ln86s8OvMMttCHYi9aUcnu5RNR6Om6QA/exec';
+
 function addView(id) {
-  const v = getViews();
-  v[id] = (v[id] || 0) + 1;
-  localStorage.setItem('lectureViews', JSON.stringify(v));
+  // Google Sheets로 기록 전송 (실패해도 무시)
+  const img = new Image();
+  img.src = SHEET_API_URL + '?action=addView&lectureId=' + id + '&t=' + Date.now();
 }
 
 function renderDownloadBtn(lec) {
