@@ -229,7 +229,7 @@ const lectures = [
 ];
 
 const barColors = ['#00C2A8','#0D8FC4','#6C63FF','#F5B623','#FF6B35'];
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxcZMBjU3e4QO095UJkbW1UzszrFjDlnLNds2Ln86s8OvMMttCHYi9aUcnu5RNR6Om6QA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyojLxoF1T3C91XLZvXSK-gV25l6g8XeTpRO9n-rK4aOZVfZVz5k2ltc2wxpjhl20-7/exec';
 
 function getPdfs()  { try { return JSON.parse(localStorage.getItem('lecturePdfs') ||'{}'); } catch(e) { return {}; } }
 function savePdfs(obj) { localStorage.setItem('lecturePdfs', JSON.stringify(obj)); }
